@@ -1,0 +1,15 @@
+FROM solr:8.11-slim
+WORKDIR /app
+
+ADD  . /app/
+
+ADD dspace/solr/authority/ /opt/solr/server/solr/configsets/authority/
+ADD dspace/solr/oai/ /opt/solr/server/solr/configsets/oai/
+ADD dspace/solr/search/ /opt/solr/server/solr/configsets/search/
+ADD dspace/solr/statistics/ /opt/solr/server/solr/configsets/statistics/
+
+WORKDIR /var/solr/data
+
+EXPOSE 8983
+
+ENTRYPOINT ["/app/updaterun.sh"]
